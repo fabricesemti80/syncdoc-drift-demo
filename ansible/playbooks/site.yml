@@ -1,0 +1,7 @@
+- name: Configure dummy Syncdoc demo hosts
+  hosts: demo
+  gather_facts: false
+  become: true
+
+  roles:
+    - common

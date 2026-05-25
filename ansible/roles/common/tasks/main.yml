@@ -1,0 +1,30 @@
+- name: Ensure demo packages are present
+  ansible.builtin.package:
+    name:
+      - curl
+      - jq
+    state: present
+
+- name: Ensure demo user exists
+  ansible.builtin.user:
+    name: syncdoc
+    shell: /bin/bash
+    state: present
+
+- name: Write baseline marker
+  ansible.builtin.copy:
+    dest: /etc/syncdoc-demo.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      app_env={{ app_env }}
+      syncdoc_state={{ syncdoc_state }}
+      managed_by=ansible
+
+- name: Keep dummy service stopped
+  ansible.builtin.service:
+    name: syncdoc-demo
+    state: stopped
+    enabled: false
+  ignore_errors: true
