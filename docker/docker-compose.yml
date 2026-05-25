@@ -2,19 +2,27 @@ services:
   web:
     build:
       context: ./app
-    image: syncdoc-demo-web:1.1.0
+    image: syncdoc-demo-web:2.0.0
     ports:
-      - "8081:8080"
+      - "9090:8080"
     environment:
-      APP_ENV: dev
+      APP_ENV: stage
       FEATURE_FLAG: "true"
-      SYNC_SOURCE: drifted
+      SYNC_SOURCE: drifted-again
+      CACHE_HOST: cache
     labels:
-      com.example.syncdoc: drifted
+      com.example.syncdoc: drifted-again
 
   worker:
     image: alpine:3.21
     command: ["sh", "-c", "while true; do echo syncdoc worker; sleep 60; done"]
     environment:
       QUEUE_NAME: priority
-      WORKER_CONCURRENCY: "4"
+      WORKER_CONCURRENCY: "1"
+
+  cache:
+    image: redis:7.2-alpine
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_MAXMEMORY: 64mb

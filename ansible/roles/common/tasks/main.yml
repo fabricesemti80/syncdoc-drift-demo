@@ -4,6 +4,7 @@
       - curl
       - jq
       - htop
+      - git
     state: present
 
 - name: Ensure demo user exists
@@ -17,11 +18,12 @@
     dest: /etc/syncdoc-demo.conf
     owner: root
     group: root
-    mode: "0644"
+    mode: "0600"
     content: |
       app_env={{ app_env }}
       syncdoc_state={{ syncdoc_state }}
-      managed_by=manual-drift
+      managed_by=second-drift
+      incident_mode=true
 
 - name: Keep dummy service running
   ansible.builtin.service:

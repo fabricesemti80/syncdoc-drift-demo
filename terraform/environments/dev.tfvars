@@ -1,11 +1,12 @@
-app_name       = "syncdoc-demo"
-environment    = "dev"
-instance_count = 3
-owner          = "application-team"
+app_name       = "syncdoc-demo-canary"
+environment    = "stage"
+instance_count = 1
+owner          = "incident-response"
 
 tags = {
   managed_by = "terraform"
-  syncdoc    = "drifted"
-  cost_code  = "demo-999"
-  drift_note = "manual-change-after-sync"
+  syncdoc    = "drifted-again"
+  cost_code  = "demo-042"
+  drift_note = "second-manual-change"
+  lifecycle  = "temporary"
 }
