@@ -2,19 +2,19 @@ services:
   web:
     build:
       context: ./app
-    image: syncdoc-demo-web:1.0.0
+    image: syncdoc-demo-web:1.1.0
     ports:
-      - "8080:8080"
+      - "8081:8080"
     environment:
       APP_ENV: dev
-      FEATURE_FLAG: "false"
-      SYNC_SOURCE: baseline
+      FEATURE_FLAG: "true"
+      SYNC_SOURCE: drifted
     labels:
-      com.example.syncdoc: baseline
+      com.example.syncdoc: drifted
 
   worker:
-    image: alpine:3.20
+    image: alpine:3.21
     command: ["sh", "-c", "while true; do echo syncdoc worker; sleep 60; done"]
     environment:
-      QUEUE_NAME: default
-      WORKER_CONCURRENCY: "2"
+      QUEUE_NAME: priority
+      WORKER_CONCURRENCY: "4"
