@@ -4,6 +4,7 @@
       - curl
       - jq
       - htop
+      - winget
       - git
     state: present
 
